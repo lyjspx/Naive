@@ -43,6 +43,14 @@ for(i in 1:length(control_marker)){
   }
 } #23676
 
+
+#NA50
 draw.triple.venn(area1 = 58860, area2 = 118971, area3 = 371990, 
                  n12 = 28022,n23 = 33710, n13 = 32419,n123 = 23676,
                  category = c("Default", "Scatter", "Cluster"))
+
+#NA50
+draw.triple.venn(area1 = 17676, area2 = 37922, area3 = 193406, 
+                 n12 = 7378,n23 = 11666, n13 = 9393,n123 = 6434,
+                 category = c("Default", "Scatter", "Cluster"),scaled = TRUE)
+
