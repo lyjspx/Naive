@@ -2,6 +2,9 @@
 setwd("/Users/xuehui.li/Desktop/XL/research/crops/durum_wheat/p2_Integrated genetic linkage map in tetraploid wheat/linkage map/integrated/durum_consensusMap_GBS-90K-SSR")
 
 
+getwd()
+setwd("Y:/Yuan/durum_consensusMap_GBS-90K-SSR/RawMapFile")
+
 ## load RIum linkage map data
 RIum=read.delim("RIumNA50_JM_kosambi.txt", header=T)
 dim(RIum)
@@ -317,152 +320,181 @@ LMPGPILG5D=LMPGPI[LMPGPI[,2]=="5D",3:4]
 LMPGPILG6D=LMPGPI[LMPGPI[,2]=="6D",3:4]
 LMPGPILG7D=LMPGPI[LMPGPI[,2]=="7D",3:4]
 
+
+consensus2004SSR=read.delim("2004 paper map SSR consensus.txt",header = T)
+consensus2004SSRLG1A=consensus2004SSR[consensus2004SSR[,2]=="1A",3:4]
+consensus2004SSRLG1B=consensus2004SSR[consensus2004SSR[,2]=="1B",3:4]
+consensus2004SSRLG2A=consensus2004SSR[consensus2004SSR[,2]=="2A",3:4]
+consensus2004SSRLG2B=consensus2004SSR[consensus2004SSR[,2]=="2B",3:4]
+consensus2004SSRLG3A=consensus2004SSR[consensus2004SSR[,2]=="3A",3:4]
+consensus2004SSRLG3B=consensus2004SSR[consensus2004SSR[,2]=="3B",3:4]
+consensus2004SSRLG4A=consensus2004SSR[consensus2004SSR[,2]=="4A",3:4]
+consensus2004SSRLG4B=consensus2004SSR[consensus2004SSR[,2]=="4B",3:4]
+consensus2004SSRLG5A=consensus2004SSR[consensus2004SSR[,2]=="5A",3:4]
+consensus2004SSRLG5B=consensus2004SSR[consensus2004SSR[,2]=="5B",3:4]
+consensus2004SSRLG6A=consensus2004SSR[consensus2004SSR[,2]=="6A",3:4]
+consensus2004SSRLG6B=consensus2004SSR[consensus2004SSR[,2]=="6B",3:4]
+consensus2004SSRLG7A=consensus2004SSR[consensus2004SSR[,2]=="7A",3:4]
+consensus2004SSRLG7B=consensus2004SSR[consensus2004SSR[,2]=="7B",3:4]
+consensus2004SSRLG1D=consensus2004SSR[consensus2004SSR[,2]=="1D",3:4]
+consensus2004SSRLG2D=consensus2004SSR[consensus2004SSR[,2]=="2D",3:4]
+consensus2004SSRLG3D=consensus2004SSR[consensus2004SSR[,2]=="3D",3:4]
+consensus2004SSRLG4D=consensus2004SSR[consensus2004SSR[,2]=="4D",3:4]
+consensus2004SSRLG5D=consensus2004SSR[consensus2004SSR[,2]=="5D",3:4]
+consensus2004SSRLG6D=consensus2004SSR[consensus2004SSR[,2]=="6D",3:4]
+consensus2004SSRLG7D=consensus2004SSR[consensus2004SSR[,2]=="7D",3:4]
+
+
+consensus2008DarT=read.delim("2008 paper map.txt",header = T)
+consensus2008DarTLG1A=consensus2008DarT[consensus2008DarT[,2]=="1A",3:4]
+consensus2008DarTLG1B=consensus2008DarT[consensus2008DarT[,2]=="1B",3:4]
+consensus2008DarTLG2A=consensus2008DarT[consensus2008DarT[,2]=="2A",3:4]
+consensus2008DarTLG2B=consensus2008DarT[consensus2008DarT[,2]=="2B",3:4]
+consensus2008DarTLG3A=consensus2008DarT[consensus2008DarT[,2]=="3A",3:4]
+consensus2008DarTLG3B=consensus2008DarT[consensus2008DarT[,2]=="3B",3:4]
+consensus2008DarTLG4A=consensus2008DarT[consensus2008DarT[,2]=="4A",3:4]
+consensus2008DarTLG4B=consensus2008DarT[consensus2008DarT[,2]=="4B",3:4]
+consensus2008DarTLG5A=consensus2008DarT[consensus2008DarT[,2]=="5A",3:4]
+consensus2008DarTLG5B=consensus2008DarT[consensus2008DarT[,2]=="5B",3:4]
+consensus2008DarTLG6A=consensus2008DarT[consensus2008DarT[,2]=="6A",3:4]
+consensus2008DarTLG6B=consensus2008DarT[consensus2008DarT[,2]=="6B",3:4]
+consensus2008DarTLG7A=consensus2008DarT[consensus2008DarT[,2]=="7A",3:4]
+consensus2008DarTLG7B=consensus2008DarT[consensus2008DarT[,2]=="7B",3:4]
+
+
 library("LPmerge")
 ## merge maps
-LG1A=list(RIumLG1A, RP883LG1A, RP979LG1A, RP336LG1A, RP696LG1A, BP025LG1A, DP527LG1A, LP749LG1A, LPenawawaLG1A,
-          LDNAltarLG1A,BR34LG1A,TAND495LG1A,SalKatLG1A,LMPGPILG1A)
-LG1A
+LG1A=list(RIumLG1A, RP883LG1A, RP979LG1A, RP336LG1A, RP696LG1A, BP025LG1A, DP527LG1A, LP749LG1A,
+          LDNAltarLG1A,BR34LG1A,TAND495LG1A,SalKatLG1A,LMPGPILG1A,consensus2004SSRLG1A,consensus2008DarTLG1A)
 LG1A.int=LPmerge(LG1A, max.interval=1:12)
 str(LG1A.int)
-LG1A.int[[6]]
+LG1A.int[[6]][1:20,]
 write.table(LG1A.int[[6]], file="LG1A.int.txt")
 
-LG1B=list(RIumLG1B, RP883LG1B, RP979LG1B, RP336LG1B, RP696LG1B, BP025LG1B, DP527LG1B, LP749LG1B, LPenawawaLG1B,
-          LDNAltarLG1B,BR34LG1B,TAND495LG1B,SalKatLG1B,LMPGPILG1B)
-LG1B
+LG1B=list(RIumLG1B, RP883LG1B, RP979LG1B, RP336LG1B, RP696LG1B, BP025LG1B, DP527LG1B, LP749LG1B,
+          LDNAltarLG1B,BR34LG1B,TAND495LG1B,SalKatLG1B,LMPGPILG1B,consensus2004SSRLG1B,consensus2008DarTLG1B)
 LG1B.int=LPmerge(LG1B, max.interval=1:12)
-LG1B.int[[4]]
+LG1B.int[[4]][1:20,]
 write.table(LG1B.int[[4]], file="LG1B.int.txt")
 
-LG2A=list(RIumLG2A, RP883LG2A, RP979LG2A, RP336LG2A, RP696LG2A, BP025LG2A, DP527LG2A1,DP527LG2A2, LP749LG2A, LPenawawaLG2A,
-          LDNAltarLG2A,BR34LG2A,TAND495LG2A,SalKatLG2A,LMPGPILG2A)
-LG2A
+LG2A=list(RIumLG2A, RP883LG2A, RP979LG2A, RP336LG2A, RP696LG2A, BP025LG2A, DP527LG2A1,DP527LG2A2, LP749LG2A,
+          LDNAltarLG2A,BR34LG2A,TAND495LG2A,SalKatLG2A,LMPGPILG2A,consensus2004SSRLG2A,consensus2008DarTLG2A)
 LG2A.int=LPmerge(LG2A, max.interval=1:12)
-LG2A.int[[2]]
+LG2A.int[[2]][1:20,]
 write.table(LG2A.int[[2]], file="LG2A.int.txt")
 
 
-LG2B=list(RIumLG2B, RP883LG2B, RP979LG2B, RP336LG2B, RP696LG2B1, RP696LG2B2, BP025LG2B, DP527LG2B, LP749LG2B, LPenawawaLG2B,
-          LDNAltarLG2B,BR34LG2B,TAND495LG2B,SalKatLG2B,LMPGPILG2B)
-LG2B
+LG2B=list(RIumLG2B, RP883LG2B, RP979LG2B, RP336LG2B, RP696LG2B1, RP696LG2B2, BP025LG2B, DP527LG2B, LP749LG2B,
+          LDNAltarLG2B,BR34LG2B,TAND495LG2B,SalKatLG2B,LMPGPILG2B,consensus2004SSRLG2B,consensus2008DarTLG2B)
 LG2B.int=LPmerge(LG2B, max.interval=1:12)
-LG2B.int[[8]]
+LG2B.int[[8]][1:20,]
 write.table(LG2B.int[[8]], file="LG2B.int.txt")
 
-LG3A=list(RIumLG3A, RP883LG3A, RP979LG3A, RP336LG3A, RP696LG3A, BP025LG3A, DP527LG3A, LP749LG3A, LPenawawaLG3A,
-          LDNAltarLG3A,BR34LG3A,TAND495LG3A,SalKatLG3A,LMPGPILG3A)
-LG3A
+LG3A=list(RIumLG3A, RP883LG3A, RP979LG3A, RP336LG3A, RP696LG3A, BP025LG3A, DP527LG3A, LP749LG3A,
+          LDNAltarLG3A,BR34LG3A,TAND495LG3A,SalKatLG3A,LMPGPILG3A,consensus2004SSRLG3A,consensus2008DarTLG3A)
 LG3A.int=LPmerge(LG3A, max.interval=1:12)
-LG3A.int[[6]]
+LG3A.int[[6]][1:20,]
 write.table(LG3A.int[[6]], file="LG3A.int.txt")
 
-LG3B=list(RIumLG3B, RP883LG3B, RP979LG3B, RP336LG3B, RP696LG3B, BP025LG3B, DP527LG3B, LP749LG3B, LPenawawaLG3B,
-          LDNAltarLG3B,BR34LG3B,TAND495LG3B,SalKatLG3B,LMPGPILG3B)
-LG3B
+LG3B=list(RIumLG3B, RP883LG3B, RP979LG3B, RP336LG3B, RP696LG3B, BP025LG3B, DP527LG3B, LP749LG3B,
+          LDNAltarLG3B,BR34LG3B,TAND495LG3B,SalKatLG3B,LMPGPILG3B,consensus2004SSRLG3B,consensus2008DarTLG3B)
 LG3B.int=LPmerge(LG3B, max.interval=1:12)
-LG3B.int[[9]]
-write.table(LG3B.int[[9]], file="LG3B.int.txt")
+  LG3B.int[[2]][1:20,]
+write.table(LG3B.int[[2]], file="LG3B.int.txt")
 
-LG4A=list(RIumLG4A, RP883LG4A, RP979LG4A, RP336LG4A, RP696LG4A, BP025LG4A, DP527LG4A, LP749LG4A, LPenawawaLG4A,
-          LDNAltarLG4A,BR34LG4A,TAND495LG4A,SalKatLG4A,LMPGPILG4A)
-LG4A
+LG4A=list(RIumLG4A, RP883LG4A, RP979LG4A, RP336LG4A, RP696LG4A, BP025LG4A, DP527LG4A, LP749LG4A,
+          LDNAltarLG4A,BR34LG4A,TAND495LG4A,SalKatLG4A,LMPGPILG4A,consensus2004SSRLG4A,consensus2008DarTLG4A)
 LG4A.int=LPmerge(LG4A, max.interval=1:12)
-LG4A.int[[9]]
-write.table(LG4A.int[[9]], file="LG4A.int.txt")
+LG4A.int[[2]][1:20,]
+write.table(LG4A.int[[2]], file="LG4A.int.txt")
 
-LG4B=list(RIumLG4B, RP883LG4B, RP979LG4B, RP336LG4B, RP696LG4B, BP025LG4B, DP527LG4B, LP749LG4B, LPenawawaLG4B,
-          LDNAltarLG4B,BR34LG4B,TAND495LG4B,SalKatLG4B,LMPGPILG4B)
-LG4B
+LG4B=list(RIumLG4B, RP883LG4B, RP979LG4B, RP336LG4B, RP696LG4B, BP025LG4B, DP527LG4B, LP749LG4B,
+          LDNAltarLG4B,BR34LG4B,TAND495LG4B,SalKatLG4B,LMPGPILG4B,consensus2004SSRLG4B,consensus2008DarTLG4B)
 LG4B.int=LPmerge(LG4B, max.interval=1:12)
-LG4B.int[[8]]
-write.table(LG4B.int[[8]], file="LG4B.int.txt")
+LG4B.int[[4]][1:20,]
+write.table(LG4B.int[[4]], file="LG4B.int.txt")
 
-LG5A=list(RIumLG5A, RP883LG5A, RP979LG5A, RP336LG5A, RP696LG5A, BP025LG5A, DP527LG5A, LP749LG5A, LPenawawaLG5A,
-          LDNAltarLG5A,BR34LG5A,TAND495LG5A,SalKatLG5A,LMPGPILG5A)
-LG5A
+LG5A=list(RIumLG5A, RP883LG5A, RP979LG5A, RP336LG5A, RP696LG5A, BP025LG5A, DP527LG5A, LP749LG5A,
+          LDNAltarLG5A,BR34LG5A,TAND495LG5A,SalKatLG5A,LMPGPILG5A,consensus2004SSRLG5A,consensus2008DarTLG5A)
 LG5A.int=LPmerge(LG5A, max.interval=1:12)
-LG5A.int[[7]]
-write.table(LG5A.int[[7]], file="LG5A.int.txt")
+LG5A.int[[4]][1:20,]
+write.table(LG5A.int[[4]], file="LG5A.int.txt")
 
-LG5B=list(RIumLG5B, RP883LG5B, RP979LG5B, RP336LG5B, RP696LG5B, BP025LG5B, DP527LG5B, LP749LG5B, LPenawawaLG5B,
-          LDNAltarLG5B,BR34LG5B,TAND495LG5B,SalKatLG5B,LMPGPILG5B)
-LG5B
+LG5B=list(RIumLG5B, RP883LG5B, RP979LG5B, RP336LG5B, RP696LG5B, BP025LG5B, DP527LG5B, LP749LG5B,
+          LDNAltarLG5B,BR34LG5B,TAND495LG5B,SalKatLG5B,LMPGPILG5B,consensus2004SSRLG5B,consensus2008DarTLG5B)
 LG5B.int=LPmerge(LG5B, max.interval=1:12)
-LG5B.int[[6]]
-write.table(LG5B.int[[6]], file="LG5B.int.txt")
+LG5B.int[[7]][1:20,]
+write.table(LG5B.int[[7]], file="LG5B.int.txt")
 
-LG6A=list(RIumLG6A, RP883LG6A, RP979LG6A, RP336LG6A, RP696LG6A, BP025LG6A, DP527LG6A, LP749LG6A, LPenawawaLG6A,
-          LDNAltarLG6A,BR34LG6A,TAND495LG6A,SalKatLG6A,LMPGPILG6A)
-LG6A
+LG6A=list(RIumLG6A, RP883LG6A, RP979LG6A, RP336LG6A, RP696LG6A, BP025LG6A, DP527LG6A, LP749LG6A,
+          LDNAltarLG6A,BR34LG6A,TAND495LG6A,SalKatLG6A,LMPGPILG6A,consensus2004SSRLG6A,consensus2008DarTLG6A)
 LG6A.int=LPmerge(LG6A, max.interval=1:12)
-LG6A.int[[7]]
-write.table(LG6A.int[[7]], file="LG6A.int.txt")
+LG6A.int[[6]][1:20,]
+write.table(LG6A.int[[6]], file="LG6A.int.txt")
 
-LG6B=list(RIumLG6B, RP883LG6B, RP979LG6B, RP336LG6B, RP696LG6B, BP025LG6B, DP527LG6B, LP749LG6B, LPenawawaLG6B,
-          LDNAltarLG6B,BR34LG6B,TAND495LG6B,SalKatLG6B,LMPGPILG6B)
-LG6B
+LG6B=list(RIumLG6B, RP883LG6B, RP979LG6B, RP336LG6B, RP696LG6B, BP025LG6B, DP527LG6B, LP749LG6B,
+          LDNAltarLG6B,BR34LG6B,TAND495LG6B,SalKatLG6B,LMPGPILG6B,consensus2004SSRLG6B,consensus2008DarTLG6B)
 LG6B.int=LPmerge(LG6B, max.interval=1:12)
-LG6B.int[[7]]
-write.table(LG6B.int[[7]], file="LG6B.int.txt")
+LG6B.int[[8]][1:20,]
+write.table(LG6B.int[[8]], file="LG6B.int.txt")
 
-LG7A=list(RIumLG7A, RP883LG7A, RP979LG7A, RP336LG7A, RP696LG7A, BP025LG7A, DP527LG7A, LP749LG7A, LPenawawaLG7A,
-          LDNAltarLG7A,BR34LG7A,TAND495LG7A,SalKatLG7A,LMPGPILG7A)
-LG7A
+LG7A=list(RIumLG7A, RP883LG7A, RP979LG7A, RP336LG7A, RP696LG7A, BP025LG7A, DP527LG7A, LP749LG7A,
+          LDNAltarLG7A,BR34LG7A,TAND495LG7A,SalKatLG7A,LMPGPILG7A,consensus2004SSRLG7A,consensus2008DarTLG7A)
 LG7A.int=LPmerge(LG7A, max.interval=1:12)
-LG7A.int[[10]]
-write.table(LG7A.int[[10]], file="LG7A.int.txt")
+LG7A.int[[8]][1:20,]
+write.table(LG7A.int[[8]], file="LG7A.int.txt")
 
-LG7B=list(RIumLG7B, RP883LG7B, RP979LG7B, RP336LG7B, RP696LG7B, BP025LG7B, DP527LG7B, LP749LG7B, LPenawawaLG7B,
-          LDNAltarLG7B,BR34LG7B,TAND495LG7B,SalKatLG7B,LMPGPILG7B)
-LG7B
+LG7B=list(RIumLG7B, RP883LG7B, RP979LG7B, RP336LG7B, RP696LG7B, BP025LG7B, DP527LG7B, LP749LG7B,
+          LDNAltarLG7B,BR34LG7B,TAND495LG7B,SalKatLG7B,LMPGPILG7B,consensus2004SSRLG7B,consensus2008DarTLG7B)
 LG7B.int=LPmerge(LG7B, max.interval=1:12)
-LG7B.int[[8]]
-write.table(LG7B.int[[8]], file="LG7B.int.txt")
+LG7B.int[[4]][1:20,]
+write.table(LG7B.int[[4]], file="LG7B.int.txt")
 
 ####D genome markers distribute sparse
-LG1D=list(LPenawawaLG1D,BR34LG1D,TAND495LG1D,SalKatLG1D,LMPGPILG1D)
-LG1D
-LG1D.int=LPmerge(LG1D, max.interval=1:12)
-LG1D.int[[10]]
-write.table(LG1D.int[[10]], file="LG1D.int.txt")
+LG1D=list(BR34LG1D,TAND495LG1D,SalKatLG1D,LMPGPILG1D,consensus2004SSRLG1D)
+LG1D.int=LPmerge(LG1D, max.interval=1:8)
+LG1D.int[[3]][1:20,]
+write.table(LG1D.int[[3]], file="LG1D.int.txt")
 
-LG2D=list(LPenawawaLG2D,BR34LG2D,TAND495LG2D,SalKatLG2D,LMPGPILG2D)
-LG2D
-LG2D.int=LPmerge(LG2D, max.interval=1:12)
-LG2D.int[[4]]
-write.table(LG2D.int[[4]], file="LG2D.int.txt")
+LG2D=list(BR34LG2D,TAND495LG2D,SalKatLG2D,LMPGPILG2D,consensus2004SSRLG2D)
+LG2D.int=LPmerge(LG2D, max.interval=1:8)
+LG2D.int[[5]][1:20,]
+write.table(LG2D.int[[5]], file="LG2D.int.txt")
 
-LG3D=list(LPenawawaLG3D,TAND495LG3D,SalKatLG3D,LMPGPILG3D)
-LG3D
-LG3D.int=LPmerge(LG3D, max.interval=1:12)
-LG3D.int[[7]]
+LG3D=list(TAND495LG3D,SalKatLG3D,LMPGPILG3D,consensus2004SSRLG3D)
+LG3D.int=LPmerge(LG3D, max.interval=1:8)
+LG3D.int[[7]][1:20,]
 write.table(LG3D.int[[7]], file="LG3D.int.txt")
 
-LG4D=list(LPenawawaLG4D,BR34LG4D,TAND495LG4D,SalKatLG4D,LMPGPILG4D)
-LG4D
-LG4D.int=LPmerge(LG4D, max.interval=1:10)
-LG4D.int[[8]]
-write.table(LG4D.int[[8]], file="LG4D.int.txt")
+LG4D=list(BR34LG4D,TAND495LG4D,SalKatLG4D,LMPGPILG4D,consensus2004SSRLG4D)
+LG4D.int=LPmerge(LG4D, max.interval=1:8)
+LG4D.int[[3]][1:20,]
+write.table(LG4D.int[[3]], file="LG4D.int.txt")
 
-LG5D=list(LPenawawaLG5D,BR34LG5D,TAND495LG5D,SalKatLG5D,LMPGPILG5D)
-LG5D
-LG5D.int=LPmerge(LG5D, max.interval=1:12)
-LG5D.int[[6]]
-write.table(LG5D.int[[6]], file="LG5D.int.txt")
+LG5D=list(BR34LG5D,TAND495LG5D,SalKatLG5D,LMPGPILG5D,consensus2004SSRLG5D)
+LG5D.int=LPmerge(LG5D, max.interval=1:8)
+LG5D.int[[5]][1:20,]
+write.table(LG5D.int[[5]], file="LG5D.int.txt")
 
-LG6D=list(LPenawawaLG6D,BR34LG6D,TAND495LG6D,SalKatLG6D,LMPGPILG6D)
-LG6D
-LG6D.int=LPmerge(LG6D, max.interval=1:12)
-LG6D.int[[6]]
-write.table(LG6D.int[[6]], file="LG6D.int.txt")
+LG6D=list(BR34LG6D,TAND495LG6D,SalKatLG6D,LMPGPILG6D,consensus2004SSRLG6D)
+LG6D.int=LPmerge(LG6D, max.interval=1:8)
+LG6D.int[[3]][1:20,]
+write.table(LG6D.int[[3]], file="LG6D.int.txt")
 
-LG7D=list(LPenawawaLG7D,BR34LG7D,TAND495LG7D,SalKatLG7D,LMPGPILG7D)
-LG7D
-LG7D.int=LPmerge(LG7D, max.interval=1:12)
-LG7D.int[[7]]
-write.table(LG7D.int[[7]], file="LG7D.int.txt")
+LG7D=list(BR34LG7D,TAND495LG7D,SalKatLG7D,LMPGPILG7D,consensus2004SSRLG7D)
+LG7D.int=LPmerge(LG7D, max.interval=1:8)
+LG7D.int[[6]][1:20,]
+write.table(LG7D.int[[6]], file="LG7D.int.txt")
 
 
+#Rename colname. Originally, colnames are X1, X2, etc.
+
+# LG2A=list(RIumLG2A, RP883LG2A, RP979LG2A, RP336LG2A, RP696LG2A, BP025LG2A, DP527LG2A1,DP527LG2A2, LP749LG2A,
+#           LDNAltarLG2A,BR34LG2A,TAND495LG2A,SalKatLG2A,LMPGPILG2A,consensus2004SSRLG2A,consensus2008DarTLG2A)
+# LG2B=list(RIumLG2B, RP883LG2B, RP979LG2B, RP336LG2B, RP696LG2B1, RP696LG2B2, BP025LG2B, DP527LG2B, LP749LG2B,
+#           LDNAltarLG2B,BR34LG2B,TAND495LG2B,SalKatLG2B,LMPGPILG2B,consensus2004SSRLG2B,consensus2008DarTLG2B)
+# LG3A=list(RIumLG3A, RP883LG3A, RP979LG3A, RP336LG3A, RP696LG3A, BP025LG3A, DP527LG3A, LP749LG3A,
+#           LDNAltarLG3A,BR34LG3A,TAND495LG3A,SalKatLG3A,LMPGPILG3A,consensus2004SSRLG3A,consensus2008DarTLG3A)
 
 
 chr1A=cbind("chr"=rep("1A",nrow(LG1A.int[[6]])),LG1A.int[[6]])
@@ -476,49 +508,45 @@ finalMap=rbind(cbind("chr"=rep("1A",nrow(LG1A.int[[6]])),LG1A.int[[6]]),
                chr2A,
                chr2B,
                cbind("chr"=rep("3A",nrow(LG3A.int[[6]])),LG3A.int[[6]]),
-               cbind("chr"=rep("3B",nrow(LG3B.int[[9]])),LG3B.int[[9]]),
-               cbind("chr"=rep("4A",nrow(LG4A.int[[9]])),LG4A.int[[9]]),
-               cbind("chr"=rep("4B",nrow(LG4B.int[[8]])),LG4B.int[[8]]),
-               cbind("chr"=rep("5A",nrow(LG5A.int[[7]])),LG5A.int[[7]]),
-               cbind("chr"=rep("5B",nrow(LG5B.int[[6]])),LG5B.int[[6]]),
-               cbind("chr"=rep("6A",nrow(LG6A.int[[7]])),LG6A.int[[7]]),
-               cbind("chr"=rep("6B",nrow(LG6B.int[[7]])),LG6B.int[[7]]), 
-               cbind("chr"=rep("7A",nrow(LG7A.int[[10]])),LG7A.int[[10]]),
-               cbind("chr"=rep("7B",nrow(LG7B.int[[8]])),LG7B.int[[8]]))
+               cbind("chr"=rep("3B",nrow(LG3B.int[[2]])),LG3B.int[[2]]),
+               cbind("chr"=rep("4A",nrow(LG4A.int[[2]])),LG4A.int[[2]]),
+               cbind("chr"=rep("4B",nrow(LG4B.int[[4]])),LG4B.int[[4]]),
+               cbind("chr"=rep("5A",nrow(LG5A.int[[4]])),LG5A.int[[4]]),
+               cbind("chr"=rep("5B",nrow(LG5B.int[[7]])),LG5B.int[[7]]),
+               cbind("chr"=rep("6A",nrow(LG6A.int[[6]])),LG6A.int[[6]]),
+               cbind("chr"=rep("6B",nrow(LG6B.int[[8]])),LG6B.int[[8]]), 
+               cbind("chr"=rep("7A",nrow(LG7A.int[[8]])),LG7A.int[[8]]),
+               cbind("chr"=rep("7B",nrow(LG7B.int[[4]])),LG7B.int[[4]]))
 
+colnames(finalMap)=c("chr","marker","pos","RIum","RP883","RP979","RP336","RP696","BP025","DP527","LP749",
+                     "LDNxAltar","BR34Gradin","TAxND495","SalKat","LMPGxPI","consensus2004","consensus2008")
+write.csv(finalMap,file = "final_consensus_map_AABB_15maps.csv")
 
-
-
-
-
-
-colnames(finalMap)=c("chr","marker","pos","RIum","RP883","RP979","RP336","RP696","BP025","DP527","LP749","LPenawawa",
-                     "LDNxAltar","BR34Gradin","TAxND495","SalKat","LMPGxPI")
-write.csv(finalMap,file = "final_consensus_map.csv")
-
+#D genome
+# LG2D=list(BR34LG2D,TAND495LG2D,SalKatLG2D,LMPGPILG2D,consensus2004SSRLG2D)
+# LG3D=list(TAND495LG3D,SalKatLG3D,LMPGPILG3D,consensus2004SSRLG3D)
 
 LG3D.int[[7]]=cbind(LG3D.int[[7]],rep(NA,nrow(LG3D.int[[7]])))
-LG3D.int[[7]]=LG3D.int[[7]][,c(1,2,3,7,4,5,6)]
-colnames(LG3D.int[[7]])=colnames(LG1D.int[[10]])
+LG3D.int[[7]]=LG3D.int[[7]][,c(1,2,7,3,4,5,6)]
+colnames(LG3D.int[[7]])=colnames(LG1D.int[[3]])
 
-finalDgenomeMap=rbind(cbind("chr"=rep("1D",nrow(LG1D.int[[10]])),LG1D.int[[10]]),
-                      cbind("chr"=rep("2D",nrow(LG2D.int[[4]])),LG2D.int[[4]]),
+finalDgenomeMap=rbind(cbind("chr"=rep("1D",nrow(LG1D.int[[3]])),LG1D.int[[3]]),
+                      cbind("chr"=rep("2D",nrow(LG2D.int[[5]])),LG2D.int[[5]]),
                       cbind("chr"=rep("3D",nrow(LG3D.int[[7]])),LG3D.int[[7]]),
-                      cbind("chr"=rep("4D",nrow(LG4D.int[[8]])),LG4D.int[[8]]),
-                      cbind("chr"=rep("5D",nrow(LG5D.int[[6]])),LG5D.int[[6]]),
-                      cbind("chr"=rep("6D",nrow(LG6D.int[[6]])),LG6D.int[[6]]),
-                      cbind("chr"=rep("7D",nrow(LG7D.int[[7]])),LG7D.int[[7]]))
+                      cbind("chr"=rep("4D",nrow(LG4D.int[[3]])),LG4D.int[[3]]),
+                      cbind("chr"=rep("5D",nrow(LG5D.int[[5]])),LG5D.int[[5]]),
+                      cbind("chr"=rep("6D",nrow(LG6D.int[[3]])),LG6D.int[[3]]),
+                      cbind("chr"=rep("7D",nrow(LG7D.int[[6]])),LG7D.int[[6]]))
 
-colnames(finalDgenomeMap)=c("chr","marker","pos","LPenawawa","BR34Gradin","TAxND495","SalKat","LMPGxPI")
+colnames(finalDgenomeMap)=c("chr","marker","pos","BR34Gradin","TAxND495","SalKat","LMPGxPI","consensus2004SSR")
 
-write.csv(finalDgenomeMap,file="final_consensus_map_Dgenome.csv")
+write.csv(finalDgenomeMap,file="final_consensus_map_Dgenome_5_maps.csv")
 ################
 #Evaluate the constructed consensus map
-setwd("Y:/durum_consensusMap_GBS-90K-SSR")
-consensusMap=read.csv("final_consensus_map_jan13.csv",header = T,stringsAsFactors = F)
+consensusMap=read.csv("../final_consensus_map_AABB_15maps.csv",header = T,stringsAsFactors = F)
 consensusMap[1:5,1:5]
 
-i90kMap=read.csv("i90k_bread_wheat_consensus_map.csv",header = T,na.strings = "NA",stringsAsFactors = F)
+i90kMap=read.csv("../i90k_bread_wheat_consensus_map.csv",header = T,na.strings = "NA",stringsAsFactors = F)
 i90kMap[1:5,]
 
 
