@@ -387,8 +387,8 @@ write.table(LG2A.int[[2]], file="LG2A.int.txt")
 LG2B=list(RIumLG2B, RP883LG2B, RP979LG2B, RP336LG2B, RP696LG2B1, RP696LG2B2, BP025LG2B, DP527LG2B, LP749LG2B,
           LDNAltarLG2B,BR34LG2B,TAND495LG2B,SalKatLG2B,LMPGPILG2B,consensus2004SSRLG2B,consensus2008DarTLG2B)
 LG2B.int=LPmerge(LG2B, max.interval=1:12)
-LG2B.int[[8]][1:20,]
-write.table(LG2B.int[[8]], file="LG2B.int.txt")
+LG2B.int[[3]][1:20,]
+write.table(LG2B.int[[3]], file="LG2B.int.txt")
 
 LG3A=list(RIumLG3A, RP883LG3A, RP979LG3A, RP336LG3A, RP696LG3A, BP025LG3A, DP527LG3A, LP749LG3A,
           LDNAltarLG3A,BR34LG3A,TAND495LG3A,SalKatLG3A,LMPGPILG3A,consensus2004SSRLG3A,consensus2008DarTLG3A)
@@ -411,20 +411,20 @@ write.table(LG4A.int[[2]], file="LG4A.int.txt")
 LG4B=list(RIumLG4B, RP883LG4B, RP979LG4B, RP336LG4B, RP696LG4B, BP025LG4B, DP527LG4B, LP749LG4B,
           LDNAltarLG4B,BR34LG4B,TAND495LG4B,SalKatLG4B,LMPGPILG4B,consensus2004SSRLG4B,consensus2008DarTLG4B)
 LG4B.int=LPmerge(LG4B, max.interval=1:12)
-LG4B.int[[4]][1:20,]
-write.table(LG4B.int[[4]], file="LG4B.int.txt")
+LG4B.int[[5]][1:20,]
+write.table(LG4B.int[[5]], file="LG4B.int.txt")
 
 LG5A=list(RIumLG5A, RP883LG5A, RP979LG5A, RP336LG5A, RP696LG5A, BP025LG5A, DP527LG5A, LP749LG5A,
           LDNAltarLG5A,BR34LG5A,TAND495LG5A,SalKatLG5A,LMPGPILG5A,consensus2004SSRLG5A,consensus2008DarTLG5A)
 LG5A.int=LPmerge(LG5A, max.interval=1:12)
-LG5A.int[[4]][1:20,]
-write.table(LG5A.int[[4]], file="LG5A.int.txt")
+LG5A.int[[6]][1:20,]
+write.table(LG5A.int[[6]], file="LG5A.int.txt")
 
 LG5B=list(RIumLG5B, RP883LG5B, RP979LG5B, RP336LG5B, RP696LG5B, BP025LG5B, DP527LG5B, LP749LG5B,
           LDNAltarLG5B,BR34LG5B,TAND495LG5B,SalKatLG5B,LMPGPILG5B,consensus2004SSRLG5B,consensus2008DarTLG5B)
 LG5B.int=LPmerge(LG5B, max.interval=1:12)
-LG5B.int[[7]][1:20,]
-write.table(LG5B.int[[7]], file="LG5B.int.txt")
+LG5B.int[[6]][1:20,]
+write.table(LG5B.int[[6]], file="LG5B.int.txt")
 
 LG6A=list(RIumLG6A, RP883LG6A, RP979LG6A, RP336LG6A, RP696LG6A, BP025LG6A, DP527LG6A, LP749LG6A,
           LDNAltarLG6A,BR34LG6A,TAND495LG6A,SalKatLG6A,LMPGPILG6A,consensus2004SSRLG6A,consensus2008DarTLG6A)
@@ -435,8 +435,8 @@ write.table(LG6A.int[[6]], file="LG6A.int.txt")
 LG6B=list(RIumLG6B, RP883LG6B, RP979LG6B, RP336LG6B, RP696LG6B, BP025LG6B, DP527LG6B, LP749LG6B,
           LDNAltarLG6B,BR34LG6B,TAND495LG6B,SalKatLG6B,LMPGPILG6B,consensus2004SSRLG6B,consensus2008DarTLG6B)
 LG6B.int=LPmerge(LG6B, max.interval=1:12)
-LG6B.int[[8]][1:20,]
-write.table(LG6B.int[[8]], file="LG6B.int.txt")
+LG6B.int[[7]][1:20,]
+write.table(LG6B.int[[7]], file="LG6B.int.txt")
 
 LG7A=list(RIumLG7A, RP883LG7A, RP979LG7A, RP336LG7A, RP696LG7A, BP025LG7A, DP527LG7A, LP749LG7A,
           LDNAltarLG7A,BR34LG7A,TAND495LG7A,SalKatLG7A,LMPGPILG7A,consensus2004SSRLG7A,consensus2008DarTLG7A)
@@ -499,7 +499,7 @@ write.table(LG7D.int[[6]], file="LG7D.int.txt")
 
 chr1A=cbind("chr"=rep("1A",nrow(LG1A.int[[6]])),LG1A.int[[6]])
 chr2A=cbind("chr"=rep("2A",nrow(LG2A.int[[2]])),LG2A.int[[2]][,-8])# extra columns in 2A&2B
-chr2B=cbind("chr"=rep("2B",nrow(LG2B.int[[8]])),LG2B.int[[8]][,-6])
+chr2B=cbind("chr"=rep("2B",nrow(LG2B.int[[3]])),LG2B.int[[3]][,-6])
 colnames(chr2A)=colnames(chr1A)
 colnames(chr2B)=colnames(chr1A)
 #write a final consensus map
@@ -509,12 +509,12 @@ finalMap=rbind(cbind("chr"=rep("1A",nrow(LG1A.int[[6]])),LG1A.int[[6]]),
                chr2B,
                cbind("chr"=rep("3A",nrow(LG3A.int[[6]])),LG3A.int[[6]]),
                cbind("chr"=rep("3B",nrow(LG3B.int[[2]])),LG3B.int[[2]]),
-               cbind("chr"=rep("4A",nrow(LG4A.int[[2]])),LG4A.int[[2]]),
-               cbind("chr"=rep("4B",nrow(LG4B.int[[4]])),LG4B.int[[4]]),
-               cbind("chr"=rep("5A",nrow(LG5A.int[[4]])),LG5A.int[[4]]),
-               cbind("chr"=rep("5B",nrow(LG5B.int[[7]])),LG5B.int[[7]]),
+s               cbind("chr"=rep("4A",nrow(LG4A.int[[2]])),LG4A.int[[2]]),
+               cbind("chr"=rep("4B",nrow(LG4B.int[[5]])),LG4B.int[[5]]),
+               cbind("chr"=rep("5A",nrow(LG5A.int[[6]])),LG5A.int[[6]]),
+               cbind("chr"=rep("5B",nrow(LG5B.int[[6]])),LG5B.int[[6]]),
                cbind("chr"=rep("6A",nrow(LG6A.int[[6]])),LG6A.int[[6]]),
-               cbind("chr"=rep("6B",nrow(LG6B.int[[8]])),LG6B.int[[8]]), 
+               cbind("chr"=rep("6B",nrow(LG6B.int[[7]])),LG6B.int[[7]]), 
                cbind("chr"=rep("7A",nrow(LG7A.int[[8]])),LG7A.int[[8]]),
                cbind("chr"=rep("7B",nrow(LG7B.int[[4]])),LG7B.int[[4]]))
 
