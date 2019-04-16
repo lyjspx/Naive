@@ -1,5 +1,5 @@
 getwd()
-setwd("C:/Users/liu.yuan/OneDrive - North Dakota University System/Research/GSwithRelative")
+setwd("Y:/Yuan/GSwithRelative")
 list.files()
 
 #####rrBLUP with relatives
@@ -182,38 +182,10 @@ write.csv(test_para,file="AYT16_hundred_rep_all_traits.csv",row.names = F,quote 
 testing=individualList[grep(pattern = "AYT15",individualList)]#define training and testing
 training=individualList[-grep(pattern = "AYT15",individualList)]
 
-result=c()
-for(trait in colnames(phenotype)[2:8]){
-  oneTrait=c(trait)
-  for(numTopIndividual in seq(from=50,to=length(training),by=100)){#define number of lines in trainging
-    oneTrait=c(oneTrait,numTopIndividual)
-    for(markerNum in c(100,500,1000,2000,3000,4000,5000,10000)){#define number of markers
-      cumulativeCor=0
-      for(rep in 1:100){#define number of replicationss
-        geneticInfoSelected=geneticInfo[,sort(sample(2:13158,markerNum))]
-        geneticInfoImputed=A.mat(geneticInfoSelected,return.imputed = T)$imputed
-        gMatrix=G.matrix(M=geneticInfoImputed[,],method = "VanRaden",format = "wide",plot = F)
-        gMatrixAdditive=gMatrix$Ga
-        averageRelativity=apply(gMatrixAdditive[,testing],1,mean)
-        averageRelativity=averageRelativity[training]
-        individualsForTraining=names(sort(averageRelativity,decreasing = T)[1:numTopIndividual])
-        predictedBreedingValue=predictBreedingValue(geneticInfoImputed[individualsForTraining,],phenotype[individualsForTraining,][,trait],geneticInfoImputed[testing,])
-        corelation=cor(predictedBreedingValue,phenotype[testing,][,trait],use = "pairwise.complete.obs")
-        cumulativeCor=cumulativeCor+corelation
-      }
-      oneTrait=c(oneTrait,cumulativeCor/100)
-    }
-    predictedBreedingValue=predictBreedingValue(geneticInfoImputed[training,],phenotype[training,][,trait],geneticInfoImputed[testing,])
-    corelation=cor(predictedBreedingValue,phenotype[testing,][,trait],use = "pairwise.complete.obs")#calculate accuracy with all markers
-    oneTrait=c(oneTrait,13158,corelation)
-  }
-  result=rbind(result,oneTrait)
-}
-
 ####Try to parallel
 library("foreach")
 library("doParallel")
-numOfCore=7
+numOfCore=20
 registerDoParallel(cores=numOfCore)
 test_para = foreach(trait = colnames(phenotype)[2:8], .combine =rbind,.packages = c("snpReady","rrBLUP","rgl"), .errorhandling = "pass", .inorder = T) %dopar%
 {oneTrait=c(trait)
@@ -242,6 +214,123 @@ for(numTopIndividual in seq(from=50,to=length(training),by=100)){#define number 
 oneTrait
 }
 write.csv(test_para,file="AYT15_hundred_rep_all_traits.csv",row.names = F,quote = F)
+###  
+
+#14
+testing=individualList[grep(pattern = "AYT14",individualList)]#define training and testing
+training=individualList[-grep(pattern = "AYT14",individualList)]
+
+####Try to parallel
+library("foreach")
+library("doParallel")
+numOfCore=20
+registerDoParallel(cores=numOfCore)
+test_para = foreach(trait = colnames(phenotype)[2:8], .combine =rbind,.packages = c("snpReady","rrBLUP","rgl"), .errorhandling = "pass", .inorder = T) %dopar%
+{oneTrait=c(trait)
+for(numTopIndividual in seq(from=50,to=length(training),by=100)){#define number of lines in trainging
+  oneTrait=c(oneTrait,numTopIndividual)
+  for(markerNum in c(100,500,1000,2000,3000,4000,5000,10000)){#define number of markers
+    cumulativeCor=0
+    for(rep in 1:100){#define number of replicationss
+      geneticInfoSelected=geneticInfo[,sort(sample(2:13158,markerNum))]
+      geneticInfoImputed=A.mat(geneticInfoSelected,return.imputed = T)$imputed
+      gMatrix=G.matrix(M=geneticInfoImputed[,],method = "VanRaden",format = "wide",plot = F)
+      gMatrixAdditive=gMatrix$Ga
+      averageRelativity=apply(gMatrixAdditive[,testing],1,mean)
+      averageRelativity=averageRelativity[training]
+      individualsForTraining=names(sort(averageRelativity,decreasing = T)[1:numTopIndividual])
+      predictedBreedingValue=predictBreedingValue(geneticInfoImputed[individualsForTraining,],phenotype[individualsForTraining,][,trait],geneticInfoImputed[testing,])
+      corelation=cor(predictedBreedingValue,phenotype[testing,][,trait],use = "pairwise.complete.obs")
+      cumulativeCor=cumulativeCor+corelation
+    }
+    oneTrait=c(oneTrait,cumulativeCor/100)
+  }
+  predictedBreedingValue=predictBreedingValue(geneticInfoImputed[training,],phenotype[training,][,trait],geneticInfoImputed[testing,])
+  corelation=cor(predictedBreedingValue,phenotype[testing,][,trait],use = "pairwise.complete.obs")#calculate accuracy with all markers
+  oneTrait=c(oneTrait,13158,corelation)
+}
+oneTrait
+}
+write.csv(test_para,file="AYT14_hundred_rep_all_traits.csv",row.names = F,quote = F)
+###  
+
+
+#13
+testing=individualList[grep(pattern = "AYT13",individualList)]#define training and testing
+training=individualList[-grep(pattern = "AYT13",individualList)]
+
+####Try to parallel
+library("foreach")
+library("doParallel")
+numOfCore=20
+registerDoParallel(cores=numOfCore)
+test_para = foreach(trait = colnames(phenotype)[2:8], .combine =rbind,.packages = c("snpReady","rrBLUP","rgl"), .errorhandling = "pass", .inorder = T) %dopar%
+{oneTrait=c(trait)
+for(numTopIndividual in seq(from=50,to=length(training),by=100)){#define number of lines in trainging
+  oneTrait=c(oneTrait,numTopIndividual)
+  for(markerNum in c(100,500,1000,2000,3000,4000,5000,10000)){#define number of markers
+    cumulativeCor=0
+    for(rep in 1:100){#define number of replicationss
+      geneticInfoSelected=geneticInfo[,sort(sample(2:13158,markerNum))]
+      geneticInfoImputed=A.mat(geneticInfoSelected,return.imputed = T)$imputed
+      gMatrix=G.matrix(M=geneticInfoImputed[,],method = "VanRaden",format = "wide",plot = F)
+      gMatrixAdditive=gMatrix$Ga
+      averageRelativity=apply(gMatrixAdditive[,testing],1,mean)
+      averageRelativity=averageRelativity[training]
+      individualsForTraining=names(sort(averageRelativity,decreasing = T)[1:numTopIndividual])
+      predictedBreedingValue=predictBreedingValue(geneticInfoImputed[individualsForTraining,],phenotype[individualsForTraining,][,trait],geneticInfoImputed[testing,])
+      corelation=cor(predictedBreedingValue,phenotype[testing,][,trait],use = "pairwise.complete.obs")
+      cumulativeCor=cumulativeCor+corelation
+    }
+    oneTrait=c(oneTrait,cumulativeCor/100)
+  }
+  predictedBreedingValue=predictBreedingValue(geneticInfoImputed[training,],phenotype[training,][,trait],geneticInfoImputed[testing,])
+  corelation=cor(predictedBreedingValue,phenotype[testing,][,trait],use = "pairwise.complete.obs")#calculate accuracy with all markers
+  oneTrait=c(oneTrait,13158,corelation)
+}
+oneTrait
+}
+write.csv(test_para,file="AYT13_hundred_rep_all_traits.csv",row.names = F,quote = F)
+###  
+
+
+
+#13
+testing=individualList[grep(pattern = "AYT12",individualList)]#define training and testing
+training=individualList[-grep(pattern = "AYT12",individualList)]
+
+####Try to parallel
+library("foreach")
+library("doParallel")
+numOfCore=20
+registerDoParallel(cores=numOfCore)
+test_para = foreach(trait = colnames(phenotype)[2:8], .combine =rbind,.packages = c("snpReady","rrBLUP","rgl"), .errorhandling = "pass", .inorder = T) %dopar%
+{oneTrait=c(trait)
+for(numTopIndividual in seq(from=50,to=length(training),by=100)){#define number of lines in trainging
+  oneTrait=c(oneTrait,numTopIndividual)
+  for(markerNum in c(100,500,1000,2000,3000,4000,5000,10000)){#define number of markers
+    cumulativeCor=0
+    for(rep in 1:100){#define number of replicationss
+      geneticInfoSelected=geneticInfo[,sort(sample(2:13158,markerNum))]
+      geneticInfoImputed=A.mat(geneticInfoSelected,return.imputed = T)$imputed
+      gMatrix=G.matrix(M=geneticInfoImputed[,],method = "VanRaden",format = "wide",plot = F)
+      gMatrixAdditive=gMatrix$Ga
+      averageRelativity=apply(gMatrixAdditive[,testing],1,mean)
+      averageRelativity=averageRelativity[training]
+      individualsForTraining=names(sort(averageRelativity,decreasing = T)[1:numTopIndividual])
+      predictedBreedingValue=predictBreedingValue(geneticInfoImputed[individualsForTraining,],phenotype[individualsForTraining,][,trait],geneticInfoImputed[testing,])
+      corelation=cor(predictedBreedingValue,phenotype[testing,][,trait],use = "pairwise.complete.obs")
+      cumulativeCor=cumulativeCor+corelation
+    }
+    oneTrait=c(oneTrait,cumulativeCor/100)
+  }
+  predictedBreedingValue=predictBreedingValue(geneticInfoImputed[training,],phenotype[training,][,trait],geneticInfoImputed[testing,])
+  corelation=cor(predictedBreedingValue,phenotype[testing,][,trait],use = "pairwise.complete.obs")#calculate accuracy with all markers
+  oneTrait=c(oneTrait,13158,corelation)
+}
+oneTrait
+}
+write.csv(test_para,file="AYT12_hundred_rep_all_traits.csv",row.names = F,quote = F)
 ###  
 
 # #16
