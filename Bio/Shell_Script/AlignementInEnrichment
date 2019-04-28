@@ -1,0 +1,19 @@
+echo "bowtie2 -p 12 --very-sensitive --score-min L,-12,0 -k 5 -x ./reference_genome/refer_29_non_scaf -U minAS12_GBS/tagsForAlign.fa -S minAS12_GBS/paperRevision/tagsForAlignReport5.sam" &>> apr_28.log
+
+bowtie2 -p 12 --very-sensitive --score-min L,-12,0 -k 5 -x ./reference_genome/refer_29_non_scaf -U minAS12_GBS/tagsForAlign.fa -S minAS12_GBS/paperRevision/tagsForAlignReport5.sam &>> apr_28.log
+
+echo "bowtie2 -p 12 --very-sensitive --score-min L,-12,0 -k 10 -x ./reference_genome/refer_29_non_scaf -U minAS12_GBS/tagsForAlign.fa -S minAS12_GBS/paperRevision/tagsForAlignReport10.sam" &>> apr_28.log
+
+bowtie2 -p 12 --very-sensitive --score-min L,-12,0 -k 10 -x ./reference_genome/refer_29_non_scaf -U minAS12_GBS/tagsForAlign.fa -S minAS12_GBS/paperRevision/tagsForAlignReport10.sam &>> apr_28.log
+
+echo "bowtie2 -p 12 --very-sensitive --score-min L,-12,0 -k 20 -x ./reference_genome/refer_29_non_scaf -U minAS12_GBS/tagsForAlign.fa -S minAS12_GBS/paperRevision/tagsForAlignReport20.sam" &>> apr_28.log
+
+bowtie2 -p 12 --very-sensitive --score-min L,-12,0 -k 20 -x ./reference_genome/refer_29_non_scaf -U minAS12_GBS/tagsForAlign.fa -S minAS12_GBS/paperRevision/tagsForAlignReport20.sam &>> apr_28.log
+
+echo "bowtie2 -p 12 --very-sensitive --score-min L,-12,0 -k 30 -x ./reference_genome/refer_29_non_scaf -U minAS12_GBS/tagsForAlign.fa -S minAS12_GBS/paperRevision/tagsForAlignReport30.sam" &>> apr_28.log
+
+bowtie2 -p 12 --very-sensitive --score-min L,-12,0 -k 30 -x ./reference_genome/refer_29_non_scaf -U minAS12_GBS/tagsForAlign.fa -S minAS12_GBS/paperRevision/tagsForAlignReport30.sam &>> apr_28.log
+
+echo "bowtie2 -p 12 --very-sensitive --score-min L,-12,0 -k 40 -x ./reference_genome/refer_29_non_scaf -U minAS12_GBS/tagsForAlign.fa -S minAS12_GBS/paperRevision/tagsForAlignReport40.sam" &>> apr_28.log
+
+bowtie2 -p 12 --very-sensitive --score-min L,-12,0 -k 40 -x ./reference_genome/refer_29_non_scaf -U minAS12_GBS/tagsForAlign.fa -S minAS12_GBS/paperRevision/tagsForAlignReport40.sam &>> apr_28.log
