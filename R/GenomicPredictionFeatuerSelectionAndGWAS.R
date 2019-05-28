@@ -24,6 +24,8 @@ library("rrBLUP")
 genoImputed = A.mat(geno,return.imputed = T)$imputed
 genoImputed[1:5,1:5]
 
+write.csv(genoImputed,"numeric_geno_rrBLUP_Imputed.csv")
+
 # pca_result = prcomp(genoImputed,center = T)
 # pca_result$x[1:5,1:5]
 
@@ -73,4 +75,4 @@ print(b-a)
 
 #50 ind 1161 markers - 1559.03  
 #all ind 1161 markers ~ 5533
-#all indi 2161 markers ~
+#all indi 2161 markers ~ 32918
