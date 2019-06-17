@@ -1,11 +1,19 @@
 #! /bin/sh
+ tassel=/home/lilabuser/sf_docs/programs/tassel/tassel-5-standalone/run_pipeline.pl
+#Tetraploid wheat
+# loc=/home/lilabuser/sf_docs/wheat/TASSELGBS/temp_raw_sequence
+# db=/home/lilabuser/sf_docs/wheat/TASSELGBS/durumGBS5.db
+# key=/media/sf_docs/wheat/TASSELGBS/keyfile/GBS-49_key_file.txt
+# length=80
+# enzyme=PstI
 
-tassel=/home/lilabuser/sf_docs/programs/tassel/tassel-5-standalone/run_pipeline.pl
-loc=/home/lilabuser/sf_docs/wheat/TASSELGBS/temp_raw_sequence
-db=/home/lilabuser/sf_docs/wheat/TASSELGBS/durumGBS5.db
-key=/media/sf_docs/wheat/TASSELGBS/keyfile/GBS46_DP527.txt
+#Hexaploid wheat
+loc=/home/lilabuser/sf_docs/hexaploid_wheat/TASSELGBS/temp_sequence
+db=/media/sf_docs/hexaploid_wheat/TASSELGBS/hexa1.db
+key=/media/sf_docs/hexaploid_wheat/TASSELGBS/keyfile/GBS-48_keyfile.txt
 length=80
 enzyme=PstI
+
 
 	#Step1 Fastq to DB Tag
 
@@ -13,21 +21,21 @@ enzyme=PstI
 
  #Step2 DB to fastq
 
-$tassel -Xms5G -Xmx80G -fork1 -TagExportToFastqPlugin -db $db -o tagsforAlign.fa.gz -c 1 -endPlugin -runfork1
+ $tassel -Xms5G -Xmx80G -fork1 -TagExportToFastqPlugin -db $db -o tagsforAlign.fa.gz -c 1 -endPlugin -runfork1
 
 	#Step3 align to reference
 
- ref=/home/lilabuser/sf_docs/refs/wheat/ta_WGA_v1/CSv1_pm
+ref=/home/lilabuser/sf_docs/refs/wheat/ta_WGA_v1/CSv1_pm
 #bwa aln -t 11 $ref tagsforAlign.fa.gz > tagsForAlign.sai
   #bwa samse $ref tagsForAlign.sai tagsforAlign.fa.gz > tagsForAlign.sam
   #grep -v "@" tagsForAlign.sam | awk -F"\t" 'BEGIN{print "flag\toccurrences"} {a[$2]++} END{for(i in a)print i"\t"a[i]}' >> samflags
 
 	#bowtie2 alignment
-gzip -k -d tagsforAlign.fa.gz
-bowtie2 -p 12 --very-sensitive -x /home/lilabuser/sf_docs/refs/wheat/ta_WGA_v1/CSv1_pm -U tagsforAlign.fa -S tagsforAlign.sam
+ gzip -k -d tagsforAlign.fa.gz
+ bowtie2 -p 12 --very-sensitive -x /home/lilabuser/sf_docs/refs/wheat/ta_WGA_v1/CSv1_pm -U tagsforAlign.fa -S tagsforAlign.sam
 
  	#Step4 back to DB
-$tassel -Xms5G -Xmx80G -fork1 -SAMToGBSdbPlugin -i tagsForAlign.sam -db $db -aProp 0.0 -aLen 0 -endPlugin -runfork1
+ $tassel -Xms5G -Xmx80G -fork1 -SAMToGBSdbPlugin -i tagsForAlign.sam -db $db -aProp 0.0 -aLen 0 -endPlugin -runfork1
 
  coverage=0.1 #percent of Taxa that need data
  mnMAF=0.05
@@ -38,10 +46,10 @@ $tassel -Xms5G -Xmx80G -fork1 -SAMToGBSdbPlugin -i tagsForAlign.sam -db $db -aPr
 # 	#Step 6 SNP stats
  $tassel -Xms5G -Xmx80G -fork1 -SNPQualityProfilerPlugin -db $db -statFile SNPstats.Cov.$coverage.MAF.$mnMAF -deleteOldData false -endPlugin -runfork1
 
-#qsFile= some manipulation of outputStats.tx # Tab-delimited Headers CHROM	POS	QUALITYSCORE
+ qsFile= some manipulation of outputStats.txt # Tab-delimited Headers CHROM	POS	QUALITYSCORE
 
 # 	#Step 7 Using OutputStats.txt, user-supplied position quality scores can be added to the database
- #$tassel -Xms5G -Xmx80G -fork1 -UpdateSNPPositionQualityPlugin -db $db -qsFile $qsFile -endPlugin -runfork1
+ $tassel -Xms5G -Xmx80G -fork1 -UpdateSNPPositionQualityPlugin -db $db -qsFile $qsFile -endPlugin -runfork1
 
 # 	# Taxa distribution of single sites. Loop to determine areas I suppose
 # chr=4a
@@ -57,7 +65,7 @@ $tassel -Xms5G -Xmx80G -fork1 -SAMToGBSdbPlugin -i tagsForAlign.sam -db $db -aPr
  minPosQS=0
 
 # 	#Production Caller - once we have a bunch of good SNPs in the db, go from fastq to vcf in one step
- $tassel -Xms5G -Xmx80G -fork1 -ProductionSNPCallerPluginV2 -db $db -e $enzyme -minPosQS $minQual -i $loc -k $key -kmerLength $length -o Cov${coverage}.MAF${mnMAF}.vcf -endPlugin -runfork1
+ $tassel -Xms5G -Xmx80G -fork1 -ProductionSNPCallerPluginV2 -db $db -e $enzyme -minPosQS $minQual -i $loc -k $key -mnQS 20 -kmerLength $length -o Cov${coverage}.MAF${mnMAF}.vcf -endPlugin -runfork1
 
 #vcftools --vcf Cov0.1.MAF0.01.vcf --minDP 2 --recode --out Cov0.1MAF0.01MinDP2
 
