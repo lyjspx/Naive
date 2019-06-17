@@ -1,5 +1,6 @@
 getwd()
 setwd("C:/Users/liu.yuan/OneDrive - North Dakota University System/Research/Spring Wheat FHB resistance manuscript/Spring_wheat_marker_size_validation")
+setwd("C:/Users/Administrator/Downloads")
 
 library("rrBLUP")
 phenotype = read.table("C:/Users/liu.yuan/OneDrive - North Dakota University System/Research/Spring Wheat FHB resistance manuscript/4th_June_2019/phenotype_estimated blups of HSEVR across all trials_439.txt",
@@ -7,7 +8,8 @@ phenotype = read.table("C:/Users/liu.yuan/OneDrive - North Dakota University Sys
 
 genotype=read.csv("genotype_AYT11-16_439GBSna50ABD_Bi_LDKNNimp.F01_meanImp.csv",header = T)
 
-genotypeUnimputed = read.table("FHB-nursery spring wheat lines_439 GBS SNPna50ABD_Bi_LDKNNimp_MAF5.F01.txt",header=T)
+genotypeUnimputed = read.table("FHB-nursery spring wheat lines_439 GBS SNPna50ABD_Bi_LDKNNimp_MAF5.F01.txt",header=T,
+                               row.names = 1)
 
 yphenotype[1:5,1:2]
 genotype[1:5,1:5]
@@ -61,18 +63,19 @@ correlation
 
 ##################################################################
 #Estimate identity by state similarity
+#Use Demerelate
 library("Demerelate")
-data("demerelpop")
-data("demerelref")
-data("demereldist")
-
-demerelpop.sp <- split(demerelpop,demerelpop[,2])
-
-demerelpop.sp[[1]]
-
-testRxy = Emp.calc(demerelpop.sp[[1]],value = "Mxy", ref.pop = "NA")
-
-genotypeUnimputed[1:5,1:5]
+# data("demerelpop")
+# data("demerelref")
+# data("demereldist")
+# 
+# demerelpop.sp <- split(demerelpop,demerelpop[,2])
+# 
+# demerelpop.sp[[1]]
+# 
+# testRxy = Emp.calc(demerelpop.sp[[1]],value = "Mxy", ref.pop = "NA")
+# 
+# genotypeUnimputed[1:5,1:5]
 
 #Population = c(rep(1,200),rep(2,239))
 
@@ -112,10 +115,38 @@ finalGenotypeTable = cbind.data.frame(firstGenotypeTable,secondGenotypeTable)
 
 DemerelateFormatGenotype = cbind.data.frame(genotypeUnimputed[,1],1,finalGenotypeTable)
 
-mainFunctionTest = Demerelate(DemerelateFormatGenotype[,1:204296],value = "Bxy",
-                              file.output = FALSE,object = TRUE,ref.pop = "NA",NA.rm = FALSE)
+mainFunctionTest = Demerelate(DemerelateFormatGenotype[,1:10],value = "Mxy",
+                              file.output = FALSE,object = TRUE,ref.pop = "NA",NA.rm = FALSE,iteration = 500,pairs = 500)
 str(mainFunctionTest)
 
+mainFunctionTest
 
+########
+#USe snpRelate from Bioconductor
 
+genotypeUnimputed[1:5,1:5]
 
+genotypeTest = apply(genotypeUnimputed,c(1,2),FUN = function(x) if(is.na(x)){x=9}else if(x==1){x=2}else{x=0})
+
+genotypeTest[1:5,1:5]
+
+snpgdsCreateGeno("sampler.gds",genmat = as.matrix(genotypeTest),sample.id = row.names(genotypeTest),
+                 snp.id = colnames(genotypeTest),snpfirstdim = F)
+
+genofile = snpgdsOpen("sampler.gds")
+
+ibs = snpgdsIBS(genofile,num.thread = 1)
+
+snpgdsClose(genofile)
+
+identityByState = ibs$ibs
+
+row.names(identityByState) = row.names(genotypeTest)
+
+colnames(identityByState) = row.names(genotypeTest)
+
+identityByState[1:5,1:5]
+
+getwd()
+
+write.csv(identityByState,file = "identify by state -spring wheat.csv",quote = F)
