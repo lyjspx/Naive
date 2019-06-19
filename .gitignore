@@ -1,4 +1,5 @@
 Bio/R/.Rhistory
 .DS_Store
 .DS_Store
-Python/-checkpoint.ipynb
+Python/.ipynb_checkpoints/*
+Bio/.ipynb_checkpoints/*
