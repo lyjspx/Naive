@@ -9,56 +9,56 @@
 
 #Hexaploid wheat
 loc=/home/lilabuser/sf_docs/hexaploid_wheat/TASSELGBS/temp_sequence
-db=/media/sf_docs/hexaploid_wheat/TASSELGBS/hexa1.db
-key=/media/sf_docs/hexaploid_wheat/TASSELGBS/keyfile/GBS-48_keyfile.txt
+db=/media/sf_docs/hexaploid_wheat/TASSELGBS/hexa1_Winter.db
+key=/media/sf_docs/hexaploid_wheat/TASSELGBS/keyfile/GBS-51_key_file.txt
 length=80
 enzyme=PstI
 
 
-	#Step1 Fastq to DB Tag
+# 	#Step1 Fastq to DB Tag
 
- $tassel -Xms5G -Xmx80G -fork1 -GBSSeqToTagDBPlugin -e $enzyme -i $loc -db $db -k $key -kmerLength $length -minKmerL 20 -mnQS 20 -mxKmerNum 100000000 -deleteOldData true -endPlugin -runfork1
+#  $tassel -Xms5G -Xmx80G -fork1 -GBSSeqToTagDBPlugin -e $enzyme -i $loc -db $db -k $key -kmerLength $length -minKmerL 20 -mnQS 20 -mxKmerNum 100000000 -deleteOldData true -endPlugin -runfork1
 
- #Step2 DB to fastq
+#  #Step2 DB to fastq
 
- $tassel -Xms5G -Xmx80G -fork1 -TagExportToFastqPlugin -db $db -o tagsforAlign.fa.gz -c 1 -endPlugin -runfork1
+#  $tassel -Xms5G -Xmx80G -fork1 -TagExportToFastqPlugin -db $db -o tagsforAlign.fa.gz -c 1 -endPlugin -runfork1
 
-	#Step3 align to reference
+# 	#Step3 align to reference
 
-ref=/home/lilabuser/sf_docs/refs/wheat/ta_WGA_v1/CSv1_pm
-#bwa aln -t 11 $ref tagsforAlign.fa.gz > tagsForAlign.sai
-  #bwa samse $ref tagsForAlign.sai tagsforAlign.fa.gz > tagsForAlign.sam
-  #grep -v "@" tagsForAlign.sam | awk -F"\t" 'BEGIN{print "flag\toccurrences"} {a[$2]++} END{for(i in a)print i"\t"a[i]}' >> samflags
+# ref=/home/lilabuser/sf_docs/refs/wheat/ta_WGA_v1/CSv1_pm
+# #bwa aln -t 11 $ref tagsforAlign.fa.gz > tagsForAlign.sai
+#   #bwa samse $ref tagsForAlign.sai tagsforAlign.fa.gz > tagsForAlign.sam
+#   #grep -v "@" tagsForAlign.sam | awk -F"\t" 'BEGIN{print "flag\toccurrences"} {a[$2]++} END{for(i in a)print i"\t"a[i]}' >> samflags
 
-	#bowtie2 alignment
- gzip -k -d tagsforAlign.fa.gz
- bowtie2 -p 12 --very-sensitive -x /home/lilabuser/sf_docs/refs/wheat/ta_WGA_v1/CSv1_pm -U tagsforAlign.fa -S tagsforAlign.sam
+# 	#bowtie2 alignment
+#  gzip -k -d tagsforAlign.fa.gz
+#  bowtie2 -p 12 --very-sensitive -x /home/lilabuser/sf_docs/refs/wheat/ta_WGA_v1/CSv1_pm -U tagsforAlign.fa -S tagsforAlign.sam
 
- 	#Step4 back to DB
- $tassel -Xms5G -Xmx80G -fork1 -SAMToGBSdbPlugin -i tagsForAlign.sam -db $db -aProp 0.0 -aLen 0 -endPlugin -runfork1
+#  	#Step4 back to DB
+#  $tassel -Xms5G -Xmx80G -fork1 -SAMToGBSdbPlugin -i tagsForAlign.sam -db $db -aProp 0.0 -aLen 0 -endPlugin -runfork1
 
  coverage=0.1 #percent of Taxa that need data
  mnMAF=0.05
 
-# 	#Step5 call SNPs
- $tassel -Xms5G -Xmx80G -fork1 -DiscoverySNPCallerPluginV2 -db $db -mnLCov $coverage -mnMAF $mnMAF -deleteOldData false -endPlugin -runfork1
+# # 	#Step5 call SNPs
+#  $tassel -Xms5G -Xmx80G -fork1 -DiscoverySNPCallerPluginV2 -db $db -mnLCov $coverage -mnMAF $mnMAF -deleteOldData false -endPlugin -runfork1
 
-# 	#Step 6 SNP stats
- $tassel -Xms5G -Xmx80G -fork1 -SNPQualityProfilerPlugin -db $db -statFile SNPstats.Cov.$coverage.MAF.$mnMAF -deleteOldData false -endPlugin -runfork1
+# # 	#Step 6 SNP stats
+#  $tassel -Xms5G -Xmx80G -fork1 -SNPQualityProfilerPlugin -db $db -statFile SNPstats.Cov.$coverage.MAF.$mnMAF -deleteOldData false -endPlugin -runfork1
 
- qsFile= some manipulation of outputStats.txt # Tab-delimited Headers CHROM	POS	QUALITYSCORE
+#  qsFile= some manipulation of outputStats.txt # Tab-delimited Headers CHROM	POS	QUALITYSCORE
 
-# 	#Step 7 Using OutputStats.txt, user-supplied position quality scores can be added to the database
- $tassel -Xms5G -Xmx80G -fork1 -UpdateSNPPositionQualityPlugin -db $db -qsFile $qsFile -endPlugin -runfork1
+# # 	#Step 7 Using OutputStats.txt, user-supplied position quality scores can be added to the database
+#  $tassel -Xms5G -Xmx80G -fork1 -UpdateSNPPositionQualityPlugin -db $db -qsFile $qsFile -endPlugin -runfork1
 
-# 	# Taxa distribution of single sites. Loop to determine areas I suppose
-# chr=4a
-# pos=345267
+# # 	# Taxa distribution of single sites. Loop to determine areas I suppose
+# # chr=4a
+# # pos=345267
 
-# #$tasselv -Xms5G -Xmx80G -fork1 -SNPCutPosTagVerificationPlugin -db $db -chr $chr -pos $pos -type snp -outFile ${chr}_${pos}.out -endPlugin -runfork1
+# # #$tasselv -Xms5G -Xmx80G -fork1 -SNPCutPosTagVerificationPlugin -db $db -chr $chr -pos $pos -type snp -outFile ${chr}_${pos}.out -endPlugin -runfork1
 
- 	#output db to tab-delimited
- #$tassel -Xms5G -Xmx80G -fork1 -GetTagSequenceFromDBPlugin -db $db -o allTags.out -endPlugin -runfork1
+#  	#output db to tab-delimited
+#  #$tassel -Xms5G -Xmx80G -fork1 -GetTagSequenceFromDBPlugin -db $db -o allTags.out -endPlugin -runfork1
 
 
  minQual=0
