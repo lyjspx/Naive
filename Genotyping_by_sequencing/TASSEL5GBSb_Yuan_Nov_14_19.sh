@@ -39,11 +39,11 @@ enzyme=PstI
 # # 	#bowtie2 alignment
 # #  gzip -k -d tagsforAlign.fa.gz
 # #  bowtie2 -p 12 --very-sensitive -x /home/lilabuser/sf_docs/refs/wheat/ta_WGA_v1/CSv1_pm -U tagsforAlign.fa -S tagsforAlign.sam
+rm tagsforAlign.fa*
 
 # #Other species
 #  gzip -k -d tagsforAlign.fa.gz
 #  bowtie2 -p 12 --very-sensitive -x /home/lilabuser/sf_docs/refs/canola/canola_v4.1 -U tagsforAlign.fa -S tagsforAlign.sam
-
 
 
 
